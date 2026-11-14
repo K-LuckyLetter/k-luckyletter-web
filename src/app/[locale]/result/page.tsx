@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { Suspense, use, useEffect, useRef, useState } from 'react';
 import { Elements, Flows, LockedList, Now, Pillars, Proof, Stars, Traits, VerdictCard } from '@/components/ReadingBlocks';
 import { ApiError, api, type Reading, type Tier } from '@/lib/api';
+import { legal } from '@/lib/legal';
 import { isLocale, ui, type Locale } from '@/lib/ui';
 
 /** 섹션 사이에 넣는 장식 이미지. 내용을 전달하지 않으므로 대체 텍스트는 비운다. */
@@ -24,6 +25,7 @@ function Result({ params }: Props) {
   const id = useSearchParams().get('id') ?? '';
   const locale: Locale = isLocale(raw) ? raw : 'en';
   const t = ui(locale);
+  const l = legal(locale);
 
   const [reading, setReading] = useState<Reading | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -141,6 +143,12 @@ function Result({ params }: Props) {
             {paying ? t.processing : `${tiers.find((x) => x.key === tier)!.name} · ${reading.prices[tier].display}`}
           </button>
           <p className="small muted center">{t.priceNote}</p>
+          <p className="small muted center">
+            {l.checkoutNote}{' '}
+            <Link href={`/${locale}/legal/terms`}>{l.docs.terms.title}</Link>{' · '}
+            <Link href={`/${locale}/legal/refund`}>{l.docs.refund.title}</Link>{' · '}
+            <Link href={`/${locale}/legal/privacy`}>{l.docs.privacy.title}</Link>
+          </p>
         </section>
       )}
 

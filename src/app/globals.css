@@ -172,6 +172,15 @@ button, input, select { font: inherit; color: inherit; }
   html { scroll-behavior: auto; }
 }
 .footer { margin-top: 40px; font-size: 12px; color: var(--muted); text-align: center; }
+.footer p { margin: 4px 0; }
+.footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px; margin: 12px 0; }
+.footer-links a { color: var(--ink); }
+
+/* 약관·정책 문서 */
+.legal { display: grid; gap: 14px; overflow-wrap: anywhere; }
+.legal h1 { font-size: 24px; }
+.legal h2 { font-size: 17px; margin: 10px 0 6px; }
+.legal p { margin: 0 0 8px; line-height: 1.7; }
 
 /* 랜딩 */
 .hero-media { position: relative; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; background: #2a2018; }

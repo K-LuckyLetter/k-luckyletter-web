@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { LangSwitch } from '@/components/LangSwitch';
+import { LEGAL_DOCS, legal } from '@/lib/legal';
 import { HTML_LANG, LOCALES, isLocale, ui } from '@/lib/ui';
 import '../globals.css';
 
@@ -27,6 +28,7 @@ export default async function RootLayout({ children, params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const t = ui(locale);
+  const l = legal(locale);
   return (
     <html lang={HTML_LANG[locale]}>
       <body>
@@ -36,7 +38,13 @@ export default async function RootLayout({ children, params }: Props) {
             <LangSwitch locale={locale} />
           </header>
           <main>{children}</main>
-          <p className="footer">{t.disclaimer}</p>
+          <footer className="footer">
+            <p>{t.disclaimer}</p>
+            <nav className="footer-links">
+              {LEGAL_DOCS.map((doc) => <Link key={doc} href={`/${locale}/legal/${doc}`}>{l.docs[doc].title}</Link>)}
+            </nav>
+            {l.business.map((line) => <p key={line}>{line}</p>)}
+          </footer>
         </div>
       </body>
     </html>
