@@ -99,6 +99,8 @@ button, input, select { font: inherit; color: inherit; }
 /* 판정 카드 */
 .verdict { text-align: center; padding: 28px 20px; }
 .verdict .q { font-family: var(--serif); font-size: 18px; }
+.verdict .q.asked { font-size: 20px; line-height: 1.5; margin-bottom: 4px; overflow-wrap: anywhere; }
+.verdict .answer { margin: 16px 0 4px; padding: 14px 16px; border-radius: 12px; background: var(--seal-soft); text-align: left; line-height: 1.7; }
 .seal {
   display: inline-block; margin: 18px 0 14px; padding: 12px 22px; border: 3px double var(--seal);
   border-radius: 10px; color: var(--seal); background: var(--seal-soft);

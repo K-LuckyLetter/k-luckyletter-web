@@ -29,6 +29,8 @@ function Result({ params }: Props) {
 
   const [reading, setReading] = useState<Reading | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // 남긴 질문에 대한 답. 받아오는 동안은 undefined, 답이 없으면 null.
+  const [answer, setAnswer] = useState<string | null | undefined>(undefined);
   const [tier, setTier] = useState<Tier>('deep');
   const [paying, setPaying] = useState(false);
   const [email, setEmail] = useState('');
@@ -50,6 +52,16 @@ function Result({ params }: Props) {
       .catch((e) => live && setError(e instanceof ApiError && e.status === 404 ? t.notFound : t.loadFailed));
     return () => { live = false; };
   }, [id, locale, t.notFound, t.loadFailed]);
+
+  // 질문에 대한 답은 AI가 써서 몇 초 걸린다. 판정을 먼저 보여주고 답은 따로 받아 채운다.
+  useEffect(() => {
+    let live = true;
+    setAnswer(undefined);
+    api<{ answer: string | null }>(`/api/readings/${id}/answer?locale=${locale}`)
+      .then((r) => live && setAnswer(r.answer))
+      .catch(() => live && setAnswer(null));
+    return () => { live = false; };
+  }, [id, locale]);
 
   async function unlock() {
     setPaying(true);
@@ -74,7 +86,7 @@ function Result({ params }: Props) {
   return (
     <div className="stack-lg">
       <h1 style={{ fontSize: 24 }}>{reading.headline}</h1>
-      <VerdictCard reading={reading} t={t} />
+      <VerdictCard reading={reading} t={t} answer={answer} />
       <Now reading={reading} t={t} />
       <Proof reading={reading} t={t} />
       <LockedList reading={reading} t={t} />

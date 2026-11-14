@@ -1,20 +1,32 @@
 import type { Grade, Reading } from '@/lib/api';
 import { fill, type Text as Ui } from '@/lib/ui';
 
-export function VerdictCard({ reading, t }: { reading: Reading; t: Ui }) {
+/**
+ * 판정 카드. 질문을 남겼으면 그 질문을 제목으로 올리고, 도장(계산으로 정한 판정) 아래에 질문에 대한 답을 붙인다.
+ * answer: undefined = 답을 받아오는 중, null = 답 없음.
+ */
+export function VerdictCard({ reading, t, answer = null }: { reading: Reading; t: Ui; answer?: string | null }) {
   const v = reading.verdictCard;
   return (
     <section className="card verdict">
       <p className="eyebrow">{fill(t.verdictOf, { name: reading.name })}</p>
-      <p className="q">{v.question}</p>
+      {reading.question ? (
+        <>
+          <p className="q asked">“{reading.question}”</p>
+          <p className="small muted">{v.question}</p>
+        </>
+      ) : (
+        <p className="q">{v.question}</p>
+      )}
       <div className="seal">{v.answer}</div>
       <p className="when">{v.whenLabel} · <b>{v.when}</b></p>
+      {reading.question && answer === undefined && <p className="answer muted" role="status">{t.answering}</p>}
+      {answer && <p className="answer">{answer}</p>}
       <p className="summary">{v.summary}</p>
       <p className="small muted reason"><strong>{t.confidence}: {v.confidence}</strong> — {v.confidenceReason}</p>
-      {reading.question && (
+      {v.noteMonth && (
         <p className="small" style={{ marginTop: 14 }}>
-          <span className="muted">{t.yourQuestion}: </span>{reading.question}
-          {v.noteMonth && <><br /><span className="muted">{t.mentioned}: </span>{v.noteMonth.month} · <GradeDot grade={v.noteMonth.grade} />{v.noteMonth.label}</>}
+          <span className="muted">{t.mentioned}: </span>{v.noteMonth.month} · <GradeDot grade={v.noteMonth.grade} />{v.noteMonth.label}
         </p>
       )}
       <p className="basis">{v.basis}</p>
