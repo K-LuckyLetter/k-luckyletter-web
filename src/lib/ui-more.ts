@@ -53,6 +53,8 @@ const ko = {
   interestTitle: '검사와 사주 비교',
   legendTest: '검사',
   legendSaju: '사주',
+  // 한국 PayPal 계정끼리는 결제가 되지 않아 한국어 화면에만 띄운다. 다른 언어는 비워 둔다.
+  payNotice: '결제는 PayPal로 진행됩니다. 한국에서 만든 PayPal 계정으로는 결제되지 않으며, 해외에서 만든 PayPal 계정으로 결제할 수 있습니다. 국내 카드·간편결제는 준비 중입니다.',
 };
 
 export type UiMore = typeof ko;
@@ -110,6 +112,7 @@ const en: UiMore = {
   interestTitle: 'Test vs. chart',
   legendTest: 'Test',
   legendSaju: 'Chart',
+  payNotice: '',
 };
 
 const ja: UiMore = {
@@ -165,6 +168,7 @@ const ja: UiMore = {
   interestTitle: '検査と命式の比較',
   legendTest: '検査',
   legendSaju: '命式',
+  payNotice: '',
 };
 
 const zh: UiMore = {
@@ -220,6 +224,7 @@ const zh: UiMore = {
   interestTitle: '测评与命盘对比',
   legendTest: '测评',
   legendSaju: '命盘',
+  payNotice: '',
 };
 
 export const MORE = { ko, en, ja, zh };

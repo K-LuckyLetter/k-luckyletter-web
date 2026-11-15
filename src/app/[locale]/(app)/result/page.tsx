@@ -151,6 +151,7 @@ function Result({ params }: Props) {
             <input id="email" className="input" type="email" autoComplete="email" inputMode="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@example.com" />
             <span className="small muted">{t.emailHint}</span>
           </div>
+          {t.payNotice && <p className="notice small">{t.payNotice}</p>}
           <button type="button" className="btn block" disabled={paying || !emailOk} onClick={unlock}>
             {paying ? t.processing : `${tiers.find((x) => x.key === tier)!.name} · ${reading.prices[tier].display}`}
           </button>
