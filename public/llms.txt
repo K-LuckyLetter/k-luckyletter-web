@@ -1,0 +1,28 @@
+# K-LuckyLetter
+
+> K-LuckyLetter is an online Korean saju (사주, Four Pillars of Destiny, 四柱推命, 八字 BaZi) fortune reading service focused on career decisions. From a birth date, birth time, and current situation it calculates a one-word verdict (for example stay, move, push, or wait) and the best month in the next 18 months. The verdict is free and needs no sign-up. A full written report is a paid option.
+
+Key facts:
+
+- Website: https://k-luckyletter.com
+- Languages: English, Korean (한국어), Japanese (日本語), Simplified Chinese (简体中文). Reports are written fresh in each language.
+- Method: the chart, ten-year cycles (daeun), yearly and monthly cycles are computed with a Korean manseryeok calendar engine. The verdict and timing are fixed by rules first; the written report explains the reasons without changing them. The same input always gives the same verdict.
+- Situations covered: employed and considering a move, job hunting, exams, school admissions, running or starting a business, returning to work.
+- Free result: verdict, best month, Four Pillars chart, five-element balance, working temperament, symbolic stars (sinsal), ten-year cycles, and a three-year outlook.
+- Paid reports: a 10-chapter reading with an 18-month calendar, or a 14-chapter in-depth reading that adds a 30-question interest test cross-checked against the chart. Payment by PayPal.
+- Birth time is optional. Solar and lunar birth dates and any birthplace time zone are supported.
+- The service is for self-reflection and is not medical, legal, or investment advice.
+
+## Pages
+
+- [English](https://k-luckyletter.com/en): Korean saju fortune reading and free career verdict
+- [한국어](https://k-luckyletter.com/ko): 무료 사주 직업운·이직운 판정
+- [日本語](https://k-luckyletter.com/ja): 韓国式四柱推命の無料占い、仕事運・転職運
+- [简体中文](https://k-luckyletter.com/zh): 韩国四柱八字免费算命，事业运·跳槽运
+- [Start a free reading](https://k-luckyletter.com/en/career)
+
+## Policies
+
+- [Terms of Service](https://k-luckyletter.com/en/legal/terms)
+- [Privacy Policy](https://k-luckyletter.com/en/legal/privacy)
+- [Refund Policy](https://k-luckyletter.com/en/legal/refund)

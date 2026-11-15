@@ -1,13 +1,47 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { isLocale, ui } from '@/lib/ui';
+import { SEO, SITE_NAME, SITE_URL, jsonLd, pageMeta } from '@/lib/seo';
+import { HTML_LANG, LOCALES, isLocale, ui } from '@/lib/ui';
 
-export default async function Landing({ params }: { params: Promise<{ locale: string }> }) {
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  return pageMeta(locale, '', SEO[locale].title, SEO[locale].description);
+}
+
+export default async function Landing({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const t = ui(locale);
+  const seo = SEO[locale];
+  const faq = [...seo.faq, ...t.faq];
+  const url = `${SITE_URL}/${locale}`;
+  // 검색엔진과 AI 검색이 서비스 정보와 질문 답변을 그대로 읽어 가도록 구조화 데이터로도 싣는다.
+  const structured = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { '@type': 'Organization', '@id': `${SITE_URL}/#org`, name: SITE_NAME, url: SITE_URL, logo: `${SITE_URL}/logo.png` },
+      {
+        '@type': 'WebSite', '@id': `${SITE_URL}/#site`, name: SITE_NAME, url: SITE_URL,
+        inLanguage: LOCALES.map((l) => HTML_LANG[l]), publisher: { '@id': `${SITE_URL}/#org` },
+      },
+      {
+        '@type': 'Service', name: seo.title, description: seo.description, url, inLanguage: HTML_LANG[locale],
+        serviceType: 'Saju (Four Pillars of Destiny) fortune reading', areaServed: 'Worldwide',
+        provider: { '@id': `${SITE_URL}/#org` }, image: `${SITE_URL}/og.jpg`,
+        offers: { '@type': 'Offer', name: t.start, price: '0', priceCurrency: 'USD', url: `${url}/career` },
+      },
+      {
+        '@type': 'FAQPage', inLanguage: HTML_LANG[locale],
+        mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+      },
+    ],
+  };
   return (
     <div className="stack-lg">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(structured) }} />
       <section className="hero stack">
         <div className="hero-media">
           <img src="/hero.jpg" alt={t.heroAlt} />
@@ -38,6 +72,18 @@ export default async function Landing({ params }: { params: Promise<{ locale: st
             <h2>{f.title}</h2>
             <p className="muted">{f.body}</p>
           </div>
+        ))}
+      </section>
+
+      <section className="card about">
+        <h2>{seo.aboutTitle}</h2>
+        {seo.about.map((p) => <p className="muted" key={p}>{p}</p>)}
+      </section>
+
+      <section className="card faq">
+        <h2>{t.faqTitle}</h2>
+        {faq.map((f) => (
+          <details key={f.q}><summary>{f.q}</summary><p>{f.a}</p></details>
         ))}
       </section>
 

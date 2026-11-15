@@ -1,0 +1,13 @@
+{
+  "name": "K-LuckyLetter: Korean Saju Fortune Reading",
+  "short_name": "K-LuckyLetter",
+  "description": "Free Korean saju (Four Pillars of Destiny) fortune reading for your career.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f1e7",
+  "theme_color": "#b8372b",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

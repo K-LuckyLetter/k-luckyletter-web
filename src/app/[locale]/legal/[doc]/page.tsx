@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { LEGAL_DOCS, isLegalDoc, legal } from '@/lib/legal';
+import { pageMeta } from '@/lib/seo';
 import { isLocale } from '@/lib/ui';
 
 type Props = { params: Promise<{ locale: string; doc: string }> };
@@ -13,7 +14,8 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const { locale, doc } = await params;
   if (!isLocale(locale) || !isLegalDoc(doc)) return {};
-  return { title: `${legal(locale).docs[doc].title} — K-LuckyLetter` };
+  const d = legal(locale).docs[doc];
+  return pageMeta(locale, `/legal/${doc}`, `${d.title} | K-LuckyLetter`, d.intro.slice(0, 160));
 }
 
 export default async function LegalPage({ params }: Props) {

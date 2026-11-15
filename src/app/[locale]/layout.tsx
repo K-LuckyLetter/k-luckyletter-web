@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { LangSwitch } from '@/components/LangSwitch';
 import { LEGAL_DOCS, legal } from '@/lib/legal';
+import { SEO, SITE_META } from '@/lib/seo';
 import { HTML_LANG, LOCALES, isLocale, ui } from '@/lib/ui';
 import '../globals.css';
 
@@ -16,12 +17,8 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const t = ui(locale);
-  return {
-    title: `${t.brand} — ${t.tagline}`,
-    description: t.heroSub,
-    alternates: { languages: Object.fromEntries(LOCALES.map((l) => [HTML_LANG[l], `/${l}`])) },
-  };
+  const { title, description, keywords } = SEO[locale];
+  return { ...SITE_META, title, description, keywords };
 }
 
 export default async function RootLayout({ children, params }: Props) {
@@ -34,7 +31,7 @@ export default async function RootLayout({ children, params }: Props) {
       <body>
         <div className="shell">
           <header className="topbar">
-            <Link className="brand" href={`/${locale}`}>{t.brand}</Link>
+            <Link className="brand" href={`/${locale}`}><img src="/icon.svg" alt="" width={26} height={26} />{t.brand}</Link>
             <LangSwitch locale={locale} />
           </header>
           <main>{children}</main>
