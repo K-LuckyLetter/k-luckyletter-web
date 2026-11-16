@@ -67,4 +67,33 @@ for (const lang of ['en', 'ja']) {
     await writeFile(`brand/social/${lang}/${String(i + 1).padStart(2, '0')}-${file}.png`, await sharp(Buffer.from(svg)).png().toBuffer());
   }
 }
+// 시리즈를 닫는 카드: 일간은 여덟 글자 중 하나라는 점을 그림으로 보여주고 무료 판정으로 잇는다.
+const CLOSING = {
+  en: { eyebrow: 'KOREAN SAJU · DAY MASTER', title: ['One character', 'out of eight'], lines: ['Same Day Master, different answer.', 'The other seven characters and', 'your current cycle decide the rest.'], ask: 'Stay or move? Which month?', cta: 'Your verdict is free and takes a minute.' },
+  ja: { eyebrow: '韓国式四柱推命 · 日干', title: ['日干は、八文字の', 'うちの一文字'], lines: ['同じ日干でも、答えは変わります。', '残りの七文字と今の運が', '続きを決めます。'], ask: '残るか、移るか。動くなら何月か。', cta: 'あなたの判定は無料で1分。' },
+};
+for (const lang of ['en', 'ja']) {
+  const f = FONT[lang], t = CLOSING[lang];
+  // 명식표처럼 2줄 x 4칸. 일주 천간(일간) 한 칸만 색을 채운다.
+  const cells = [0, 1, 2, 3].flatMap((col) => [0, 1].map((row) => {
+    const x = 262 + col * 144, y = 300 + row * 144, me = col === 1 && row === 0;
+    return `<rect x="${x}" y="${y}" width="124" height="124" rx="18" fill="${me ? SEAL : 'none'}" stroke="${me ? SEAL : LINE}" stroke-width="4"/>`
+      + (me ? `<text x="${x + 62}" y="${y + 90}" font-family="${HANJA_FONT}" font-size="80" fill="${PAPER}">甲</text>` : '');
+  })).join('');
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" width="1080" height="1350" text-anchor="middle">
+    <rect width="1080" height="1350" fill="${PAPER}"/>
+    <rect x="40" y="40" width="1000" height="1270" fill="none" stroke="${LINE}" stroke-width="3"/>
+    <g transform="translate(346 96) scale(0.875)">${mark}</g>
+    <text x="570" y="140" font-family="${FONT.en.serif}" font-size="40" fill="${INK}">K-LuckyLetter</text>
+    <text x="540" y="218" font-family="${f.sans}" font-size="26" fill="${SEAL}" letter-spacing="3">${esc(t.eyebrow)}</text>
+    ${cells}
+    ${t.title.map((s, n) => `<text x="540" y="${718 + n * 92}" font-family="${f.serif}" font-size="${lang === 'en' ? 80 : 68}" font-weight="600" fill="${INK}">${esc(s)}</text>`).join('')}
+    ${t.lines.map((s, n) => `<text x="540" y="${912 + n * 58}" font-family="${f.sans}" font-size="38" fill="${INK}">${esc(s)}</text>`).join('')}
+    <text x="540" y="1118" font-family="${f.sans}" font-size="36" fill="${SEAL}">${esc(t.ask)}</text>
+    <rect x="480" y="1166" width="120" height="3" fill="${LINE}"/>
+    <text x="540" y="1220" font-family="${f.sans}" font-size="32" fill="${MUTED}">${esc(t.cta)}</text>
+    <text x="540" y="1270" font-family="${FONT.en.sans}" font-size="36" font-weight="600" fill="${INK}">k-luckyletter.com</text>
+  </svg>`;
+  await writeFile(`brand/social/${lang}/11-closing.png`, await sharp(Buffer.from(svg)).png().toBuffer());
+}
 console.log('done');

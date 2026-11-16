@@ -24,4 +24,4 @@ Pushing to `main` builds the site and publishes the `out` folder to GitHub Pages
 
 The source is `brand/mark.svg`. `node scripts/brand.mjs` regenerates the favicon, app icons, and share image in `public/`, and the logo files for ad platforms in `brand/ads/`.
 
-`node scripts/social.mjs` regenerates the ten Day Master cards for social posts (English and Japanese, 1080x1350) in `brand/social/`.
+`node scripts/social.mjs` regenerates the Day Master cards for social posts (ten cards and a closing card, English and Japanese, 1080x1350) in `brand/social/`. The post text for each card is in `posts.md` in the same folders.
