@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { ShareCard } from '@/components/ShareCard';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, use, useEffect, useRef, useState } from 'react';
 import { Elements, Flows, LockedList, Now, Pillars, Proof, Stars, Traits, VerdictCard } from '@/components/ReadingBlocks';
@@ -87,6 +88,7 @@ function Result({ params }: Props) {
     <div className="stack-lg">
       <h1 style={{ fontSize: 24 }}>{reading.headline}</h1>
       <VerdictCard reading={reading} t={t} answer={answer} />
+      <ShareCard reading={reading} t={t} locale={locale} />
       <Now reading={reading} t={t} />
       <Proof reading={reading} t={t} />
       <LockedList reading={reading} t={t} />

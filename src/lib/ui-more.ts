@@ -53,6 +53,8 @@ const ko = {
   interestTitle: '검사와 사주 비교',
   legendTest: '검사',
   legendSaju: '사주',
+  shareCta: '판정 카드 공유하기', shareHint: '판정과 시기만 담긴 그림입니다. 이름과 생년월일은 들어가지 않습니다.', shareSaved: '그림을 저장했습니다. 원하는 곳에 올려보세요.',
+  shareText: '사주로 본 내 커리어 판정. 무료로 확인해 보세요.', shareCardCta: '내 판정 무료로 보기',
   // 한국 PayPal 계정끼리는 결제가 되지 않아 한국어 화면에만 띄운다. 다른 언어는 비워 둔다.
   payNotice: '결제는 PayPal로 진행됩니다. 한국에서 만든 PayPal 계정으로는 결제되지 않으며, 해외에서 만든 PayPal 계정으로 결제할 수 있습니다. 국내 카드·간편결제는 준비 중입니다.',
 };
@@ -112,6 +114,8 @@ const en: UiMore = {
   interestTitle: 'Test vs. chart',
   legendTest: 'Test',
   legendSaju: 'Chart',
+  shareCta: 'Share my verdict card', shareHint: 'The image shows only the verdict and the timing. Your name and birth date are not included.', shareSaved: 'Image saved. Post it wherever you like.',
+  shareText: 'My career verdict from Korean saju. See yours for free.', shareCardCta: 'See your verdict for free',
   payNotice: '',
 };
 
@@ -168,6 +172,8 @@ const ja: UiMore = {
   interestTitle: '検査と命式の比較',
   legendTest: '検査',
   legendSaju: '命式',
+  shareCta: '判定カードをシェアする', shareHint: '判定と時期だけが入った画像です。お名前と生年月日は入りません。', shareSaved: '画像を保存しました。お好きな場所に投稿してください。',
+  shareText: '韓国式四柱推命で見た私のキャリア判定。無料で試せます。', shareCardCta: '無料で判定を見る',
   payNotice: '',
 };
 
@@ -224,6 +230,8 @@ const zh: UiMore = {
   interestTitle: '测评与命盘对比',
   legendTest: '测评',
   legendSaju: '命盘',
+  shareCta: '分享我的判定卡片', shareHint: '图片只包含判定和时机，不包含姓名和出生日期。', shareSaved: '图片已保存，可以发布到你喜欢的地方。',
+  shareText: '用韩国四柱八字看我的职业判定，可以免费测算。', shareCardCta: '免费查看你的判定',
   payNotice: '',
 };
 

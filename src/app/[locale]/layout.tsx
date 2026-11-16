@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Analytics } from '@/components/Analytics';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { LangSwitch } from '@/components/LangSwitch';
@@ -43,6 +44,7 @@ export default async function RootLayout({ children, params }: Props) {
             {l.business.map((line) => <p key={line}>{line}</p>)}
           </footer>
         </div>
+        <Analytics />
       </body>
     </html>
   );

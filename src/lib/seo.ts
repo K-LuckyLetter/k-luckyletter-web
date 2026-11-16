@@ -165,5 +165,8 @@ export function pageMeta(locale: Locale, path: string, title: string, descriptio
   };
 }
 
+/** Cloudflare Web Analytics 토큰. 비어 있으면 방문 통계 스크립트를 넣지 않는다. */
+export const ANALYTICS_TOKEN = process.env.NEXT_PUBLIC_CF_ANALYTICS_TOKEN || '';
+
 /** 구조화 데이터를 <script> 안에 안전하게 넣기 위한 문자열. */
 export const jsonLd = (data: unknown) => JSON.stringify(data).replace(/</g, '\\u003c');

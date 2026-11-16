@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import { Analytics } from '@/components/Analytics';
 import { SITE_META, SITE_NAME, SITE_URL, languageLinks } from '@/lib/seo';
 import '../globals.css';
 
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>{children}<Analytics /></body>
     </html>
   );
 }
