@@ -119,11 +119,17 @@ export const SEO: Record<Locale, Seo> = {
   },
 };
 
+/** Google AdSense 게시자 ID(ca-pub-…)와 광고 단위 ID. 둘 다 있어야 메인 화면에 광고가 나온다. */
+export const ADSENSE_CLIENT = process.env.NEXT_PUBLIC_ADSENSE_CLIENT || '';
+export const ADSENSE_SLOT = process.env.NEXT_PUBLIC_ADSENSE_SLOT || '';
+
 const verification = {
   google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
-  other: process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION
-    ? { 'naver-site-verification': process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION }
-    : undefined,
+  other: {
+    ...(process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION && { 'naver-site-verification': process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION }),
+    // AdSense 사이트 소유 확인. 게시자 ID만 있어도 모든 화면에 실린다.
+    ...(ADSENSE_CLIENT && { 'google-adsense-account': ADSENSE_CLIENT }),
+  },
 };
 
 /** 모든 화면에 공통인 값. 두 최상위 틀(언어 선택 화면, 언어별 화면)이 함께 쓴다. */

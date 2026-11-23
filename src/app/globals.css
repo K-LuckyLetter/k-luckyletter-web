@@ -193,6 +193,11 @@ button, input, select { font: inherit; color: inherit; }
   content: counter(step); width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--seal);
   color: var(--seal); font-family: var(--serif); display: grid; place-items: center;
 }
+/* 광고 한 칸. 높이를 고정해 늦게 떠도 화면이 밀리지 않는다. 채울 광고가 없으면 칸을 숨긴다. */
+.ad { display: grid; gap: 4px; }
+.ad:has(ins[data-ad-status="unfilled"]) { display: none; }
+.ad-label { margin: 0; font-size: 11px; color: var(--muted); text-align: center; letter-spacing: 0.04em; }
+.ad ins { display: block; width: 100%; height: 100px; }
 .banner { border-radius: 14px; overflow: hidden; aspect-ratio: 16 / 7; }
 .banner.art { margin-bottom: 20px; }
 .banner.art img { object-position: center; }

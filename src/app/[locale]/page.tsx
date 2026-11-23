@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { AdSlot } from '@/components/AdSlot';
 import { SEO, SITE_NAME, SITE_URL, jsonLd, pageMeta } from '@/lib/seo';
 import { HTML_LANG, LOCALES, isLocale, ui } from '@/lib/ui';
 
@@ -86,6 +87,8 @@ export default async function Landing({ params }: Props) {
           <details key={f.q}><summary>{f.q}</summary><p>{f.a}</p></details>
         ))}
       </section>
+
+      <AdSlot locale={locale} />
 
       <div className="banner"><img src="/letter.jpg" alt="" loading="lazy" /></div>
       <Link className="btn block" href={`/${locale}/career`}>{t.start}</Link>

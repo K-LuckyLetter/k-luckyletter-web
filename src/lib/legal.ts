@@ -1,13 +1,16 @@
 // 이용약관, 개인정보 처리방침, 환불 정책과 사업자 표기. 4개 언어.
 // 법률 검토를 거치지 않은 초안이다. 내용을 바꾸면 UPDATED 도 함께 바꾼다.
 
+import { ADSENSE_CLIENT } from './seo';
 import type { Locale } from './ui';
 
 export const LEGAL_DOCS = ['terms', 'privacy', 'refund'] as const;
 export type LegalDoc = (typeof LEGAL_DOCS)[number];
 export const isLegalDoc = (v: string): v is LegalDoc => (LEGAL_DOCS as readonly string[]).includes(v);
 
-const UPDATED = '2026-11-14';
+const UPDATED = '2026-11-23';
+/** 광고를 켠 배포에서만 광고 관련 문장이 방침에 들어간다. */
+const ADS = Boolean(ADSENSE_CLIENT);
 const CONTACT = 'k-luckyletter@k-luckyletter.com';
 
 interface Section { heading: string; body: string[] }
@@ -80,7 +83,9 @@ const ko: Legal = {
           '풀이를 만들 때: 생년월일과 태어난 시간, 양력·음력 구분, 태어난 곳의 시간대, 성별, 이름 또는 닉네임, 현재 상황과 직무, 남긴 질문.',
           '결제할 때: 리포트 링크를 받을 이메일 주소, 주문 금액과 통화, PayPal 주문 번호. 카드 번호 등 결제 수단 정보는 PayPal이 처리하며 회사는 받지 않습니다.',
           '심층 리포트를 이용할 때: 적성 검사 30문항의 답.',
-          '회원 가입이 없고, 광고용 추적 도구나 쿠키를 쓰지 않습니다. 방문 통계는 쿠키 없이, 개인을 식별하지 않는 방식으로만 집계합니다.',
+          ADS
+            ? '회원 가입이 없습니다. 메인 화면 맨 아래에 Google 광고가 한 칸 표시되며, 이 광고를 위해 Google과 그 협력사가 쿠키나 기기 식별자를 쓸 수 있습니다. 입력한 생년월일, 이름, 질문, 이메일 주소는 광고에 쓰이지 않고 Google에 전달되지 않습니다. 방문 통계는 쿠키 없이, 개인을 식별하지 않는 방식으로만 집계합니다.'
+            : '회원 가입이 없고, 광고용 추적 도구나 쿠키를 쓰지 않습니다. 방문 통계는 쿠키 없이, 개인을 식별하지 않는 방식으로만 집계합니다.',
         ] },
         { heading: '2. 이용 목적', body: [
           '명식 계산과 판정, 리포트 생성과 제공, 리포트 링크 메일 발송, 결제 처리와 환불, 문의 응대에 씁니다. 광고나 마케팅 목적으로 쓰지 않으며 제3자에게 판매하지 않습니다.',
@@ -91,6 +96,7 @@ const ko: Legal = {
           'Anthropic: 리포트 문장 생성. 이름 또는 닉네임, 명식 계산 결과, 상황, 질문, 적성 검사 결과가 전달됩니다. 이메일 주소는 전달하지 않습니다.',
           'Resend: 리포트 링크 메일 발송. 이메일 주소와 이름이 전달됩니다.',
           'Cloudflare, GitHub: 사이트 전송과 접속 중계, 방문 통계(Cloudflare Web Analytics, 쿠키를 쓰지 않음). 접속 기록(IP 주소 등)이 처리될 수 있습니다.',
+          ...(ADS ? ['Google(AdSense): 메인 화면의 광고 표시. 쿠키, 기기 정보, IP 주소로 광고를 고르고 성과를 측정합니다. 맞춤 광고는 Google 광고 설정(adssettings.google.com)에서 끌 수 있고, 유럽 등 동의가 필요한 지역에서는 처음 방문할 때 동의 여부를 묻습니다.'] : []),
         ] },
         { heading: '4. 보관 기간', body: [
           '풀이와 리포트는 다시 볼 수 있도록 삭제를 요청할 때까지 보관합니다.',
@@ -195,7 +201,9 @@ const en: Legal = {
           'When you create a reading: birth date and time, solar or lunar calendar, the time zone of your birthplace, gender, a name or nickname, your current situation and job field, and any question you leave.',
           'When you pay: the email address for your report link, the order amount and currency, and the PayPal order number. Card numbers and other payment details are handled by PayPal and never reach the Company.',
           'When you use the Deep report: your answers to the 30-question interest test.',
-          'There are no accounts, and we do not use advertising trackers or cookies. Visit statistics are counted without cookies and without identifying individuals.',
+          ADS
+            ? 'There are no accounts. One Google ad is shown at the bottom of the main page, and for it Google and its partners may use cookies or device identifiers. The birth data, name, question, and email address you enter are not used for advertising and are not sent to Google. Visit statistics are counted without cookies and without identifying individuals.'
+            : 'There are no accounts, and we do not use advertising trackers or cookies. Visit statistics are counted without cookies and without identifying individuals.',
         ] },
         { heading: '2. How we use it', body: [
           'To calculate your chart and verdict, generate and deliver your report, email the report link, process payments and refunds, and answer inquiries. We do not use it for advertising or marketing, and we do not sell it.',
@@ -206,6 +214,7 @@ const en: Legal = {
           'Anthropic: writing the report text. Receives your name or nickname, the calculated chart, your situation, your question, and your test results. Your email address is not sent.',
           'Resend: sending the report link email. Receives your email address and name.',
           'Cloudflare and GitHub: delivering the site, relaying connections, and visit statistics (Cloudflare Web Analytics, which does not use cookies). They may process connection logs such as IP addresses.',
+          ...(ADS ? ['Google (AdSense): showing the ad on the main page. It uses cookies, device information, and your IP address to choose ads and measure them. You can turn off personalized ads in Google Ads Settings (adssettings.google.com), and in regions where consent is required, such as Europe, you are asked on your first visit.'] : []),
         ] },
         { heading: '4. How long we keep it', body: [
           'Readings and reports are kept until you ask us to delete them, so that you can reopen them.',
@@ -310,7 +319,9 @@ const ja: Legal = {
           '鑑定を作成するとき: 生年月日と出生時刻、新暦・旧暦の区分、出生地のタイムゾーン、性別、お名前またはニックネーム、現在の状況と職種、ご質問。',
           '決済するとき: レポートのリンクを受け取るメールアドレス、注文金額と通貨、PayPalの注文番号。カード番号などの決済情報はPayPalが取り扱い、当社は受け取りません。',
           'ディープレポートをご利用のとき: 適性テスト30問の回答。',
-          '会員登録はなく、広告用のトラッキングツールやクッキーは使用しません。アクセス統計は、クッキーを使わず、個人を特定しない方法でのみ集計します。',
+          ADS
+            ? '会員登録はありません。トップページの一番下にGoogleの広告を1枠表示しており、この広告のためにGoogleとその提携先がクッキーや端末の識別子を使用することがあります。入力された生年月日、お名前、ご質問、メールアドレスは広告には使用せず、Googleにも提供しません。アクセス統計は、クッキーを使わず、個人を特定しない方法でのみ集計します。'
+            : '会員登録はなく、広告用のトラッキングツールやクッキーは使用しません。アクセス統計は、クッキーを使わず、個人を特定しない方法でのみ集計します。',
         ] },
         { heading: '2. 利用目的', body: [
           '命式の計算と判定、レポートの生成と提供、レポートリンクのメール送信、決済と返金の処理、お問い合わせへの対応に利用します。広告やマーケティングには利用せず、第三者に販売しません。',
@@ -321,6 +332,7 @@ const ja: Legal = {
           'Anthropic: レポート文章の生成。お名前またはニックネーム、命式の計算結果、状況、ご質問、適性テストの結果が提供されます。メールアドレスは提供しません。',
           'Resend: レポートリンクのメール送信。メールアドレスとお名前が提供されます。',
           'Cloudflare、GitHub: サイトの配信、通信の中継、アクセス統計(Cloudflare Web Analytics、Cookieは使用しません)。アクセス記録(IPアドレスなど)が処理される場合があります。',
+          ...(ADS ? ['Google(AdSense): トップページの広告表示。クッキー、端末情報、IPアドレスを使って広告を選び、効果を測定します。パーソナライズ広告はGoogleの広告設定(adssettings.google.com)で無効にできます。欧州など同意が必要な地域では、初回アクセス時に同意の有無をお尋ねします。'] : []),
         ] },
         { heading: '4. 保管期間', body: [
           '鑑定とレポートは、読み返せるよう、削除のご依頼があるまで保管します。',
@@ -425,7 +437,9 @@ const zh: Legal = {
           '生成解读时: 出生日期和时间、公历或农历、出生地时区、性别、姓名或昵称、当前情况和职业领域，以及您留下的问题。',
           '付款时: 接收报告链接的邮箱地址、订单金额和币种、PayPal订单号。卡号等支付信息由PayPal处理，本公司不会收到。',
           '使用深度报告时: 30道兴趣测试题的答案。',
-          '本服务无需注册账号，也不使用广告类的追踪工具和Cookie。访问统计不使用Cookie，也不识别个人身份。',
+          ADS
+            ? '本服务无需注册账号。首页最下方会显示一处Google广告，Google及其合作方可能为此使用Cookie或设备标识符。您填写的出生信息、姓名、问题和邮箱地址不会用于广告，也不会提供给Google。访问统计不使用Cookie，也不识别个人身份。'
+            : '本服务无需注册账号，也不使用广告类的追踪工具和Cookie。访问统计不使用Cookie，也不识别个人身份。',
         ] },
         { heading: '2. 使用目的', body: [
           '用于计算命盘和判断、生成并提供报告、发送报告链接邮件、处理付款和退款以及答复咨询。不用于广告或营销，也不向第三方出售。',
@@ -436,6 +450,7 @@ const zh: Legal = {
           'Anthropic: 生成报告文字。会收到姓名或昵称、命盘计算结果、当前情况、问题和测试结果。不会发送邮箱地址。',
           'Resend: 发送报告链接邮件。会收到邮箱地址和姓名。',
           'Cloudflare、GitHub: 网站分发、连接中转和访问统计（Cloudflare Web Analytics，不使用Cookie）。可能会处理IP地址等访问记录。',
+          ...(ADS ? ['Google(AdSense): 在首页显示广告。会使用Cookie、设备信息和IP地址来选择广告并衡量效果。您可以在Google广告设置(adssettings.google.com)中关闭个性化广告；在欧洲等需要征得同意的地区，首次访问时会询问您是否同意。'] : []),
         ] },
         { heading: '4. 保存期限', body: [
           '为了让您可以重新查看，解读和报告会保存到您要求删除为止。',
