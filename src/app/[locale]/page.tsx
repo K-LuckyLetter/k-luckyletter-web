@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { AdSlot } from '@/components/AdSlot';
+import { AdScript, AdSlot } from '@/components/AdSlot';
 import { SEO, SITE_NAME, SITE_URL, jsonLd, pageMeta } from '@/lib/seo';
 import { HTML_LANG, LOCALES, isLocale, ui } from '@/lib/ui';
 
@@ -88,6 +88,7 @@ export default async function Landing({ params }: Props) {
         ))}
       </section>
 
+      <AdScript />
       <AdSlot locale={locale} />
 
       <div className="banner"><img src="/letter.jpg" alt="" loading="lazy" /></div>
