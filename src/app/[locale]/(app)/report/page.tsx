@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, use, useEffect, useState } from 'react';
 import { Interest, LockedList, Months, VerdictCard } from '@/components/ReadingBlocks';
-import { ApiError, api, type Report } from '@/lib/api';
+import { MonthBars, ScoreBars, ScoreCard } from '@/components/ProductBlocks';
+import { ApiError, api, isProduct, type Report } from '@/lib/api';
 import { fill, isLocale, ui, type Locale } from '@/lib/ui';
 
 const POLL_MS = 2500;
@@ -85,12 +86,21 @@ function ReportPage({ params }: Props) {
 
   return (
     <div className="stack-lg">
-      <VerdictCard reading={reading} t={t} />
-      <LockedList reading={reading} t={t} />
+      {isProduct(reading) ? (
+        <>
+          <ScoreCard view={reading} />
+          <ScoreBars view={reading} locale={locale} />
+        </>
+      ) : (
+        <>
+          <VerdictCard reading={reading} t={t} />
+          <LockedList reading={reading} t={t} />
+        </>
+      )}
 
       <p className="small muted center">{mail?.status === 'sent' ? fill(t.mailSent, { to: mail.to }) : t.mailNotSent}</p>
 
-      {reading.needsTest && (
+      {!isProduct(reading) && reading.needsTest && (
         <div className="notice stack">
           <p>{t.testPending}</p>
           <Link className="btn block" href={`/${locale}/test?id=${id}`}>{t.testCta}</Link>
@@ -111,7 +121,9 @@ function ReportPage({ params }: Props) {
         </p>
         <h1>{chapter.title}</h1>
         <div className="banner art"><img src={`/chapters/${chapter.no}.jpg`} alt="" /></div>
-        {chapter.no === 10 && <Months reading={reading} t={t} />}
+        {isProduct(reading)
+          ? ['y_months', 'c_timing'].includes(chapter.key) && <MonthBars view={reading} />
+          : chapter.no === 10 && <Months reading={reading} t={t} />}
         {chapter.no === 11 && interest && <Interest rows={interest} t={t} />}
         {chapter.items.map((item) => (
           <section key={item.heading}>

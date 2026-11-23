@@ -193,6 +193,19 @@ button, input, select { font: inherit; color: inherit; }
   content: counter(step); width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--seal);
   color: var(--seal); font-family: var(--serif); display: grid; place-items: center;
 }
+/* 상품 카드(메인 화면)와 신년운세·궁합 화면 */
+.products { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.product { display: grid; gap: 8px; align-content: start; color: inherit; text-decoration: none; }
+.product strong { font-family: var(--serif); font-size: 18px; }
+.product span { font-size: 14px; line-height: 1.6; }
+.product .more { color: var(--seal); font-weight: 600; }
+.score-big { margin: 10px 0 6px; font-family: var(--serif); }
+.score-big b { font-size: 44px; line-height: 1.1; }
+.score-big span { font-size: 16px; color: var(--muted); }
+.bar .blur { min-width: 34px; height: 12px; }
+.person { margin: 0; min-width: 0; }
+.person legend { padding: 0 8px; font-family: var(--serif); font-size: 17px; }
+
 /* 광고 한 칸. 높이를 고정해 늦게 떠도 화면이 밀리지 않는다. 채울 광고가 없으면 칸을 숨긴다. */
 .ad { display: grid; gap: 4px; }
 .ad:has(ins[data-ad-status="unfilled"]) { display: none; }

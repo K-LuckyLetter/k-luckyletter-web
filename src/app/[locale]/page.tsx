@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { AdScript, AdSlot } from '@/components/AdSlot';
 import { SEO, SITE_NAME, SITE_URL, jsonLd, pageMeta } from '@/lib/seo';
 import { HTML_LANG, LOCALES, isLocale, ui } from '@/lib/ui';
+import { productUi } from '@/lib/ui-products';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -17,6 +18,7 @@ export default async function Landing({ params }: Props) {
   if (!isLocale(locale)) notFound();
   const t = ui(locale);
   const seo = SEO[locale];
+  const x = productUi(locale);
   const faq = [...seo.faq, ...t.faq];
   const url = `${SITE_URL}/${locale}`;
   // 검색엔진과 AI 검색이 서비스 정보와 질문 답변을 그대로 읽어 가도록 구조화 데이터로도 싣는다.
@@ -56,6 +58,19 @@ export default async function Landing({ params }: Props) {
           <p className="muted">{t.heroSub}</p>
         </div>
         <Link className="btn block" href={`/${locale}/career`}>{t.start}</Link>
+      </section>
+
+      <section className="stack">
+        <h2>{x.sectionTitle}</h2>
+        <div className="products">
+          {(['career', 'yearly', 'compat'] as const).map((key) => (
+            <Link className="card product" key={key} href={`/${locale}/${key}`}>
+              <strong>{x.cards[key].title}</strong>
+              <span className="muted">{x.cards[key].body}</span>
+              <span className="more">{x.cards[key].cta} →</span>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <section className="card">

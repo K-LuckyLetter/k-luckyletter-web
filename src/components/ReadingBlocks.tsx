@@ -1,4 +1,4 @@
-import type { Grade, Reading } from '@/lib/api';
+import type { ChartView, Grade, Reading } from '@/lib/api';
 import { fill, type Text as Ui } from '@/lib/ui';
 
 /**
@@ -64,10 +64,10 @@ export function GradeDot({ grade }: { grade: Grade }) {
   return <span className={`dot g-${grade}`} aria-hidden="true" />;
 }
 
-export function Pillars({ reading, t }: { reading: Reading; t: Ui }) {
+export function Pillars({ reading, t, title = t.pillarsTitle }: { reading: ChartView; t: Ui; title?: string }) {
   return (
     <section className="card">
-      <h2>{t.pillarsTitle}</h2>
+      <h2>{title}</h2>
       <div className="pillars">
         {reading.pillars.map((p) => (
           <div className="pillar" key={p.key}>

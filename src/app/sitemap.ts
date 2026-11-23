@@ -9,6 +9,8 @@ export const dynamic = 'force-static';
 const PAGES: { path: string; priority: number; changeFrequency: 'weekly' | 'monthly' | 'yearly' }[] = [
   { path: '', priority: 1, changeFrequency: 'weekly' },
   { path: '/career', priority: 0.8, changeFrequency: 'monthly' },
+  { path: '/yearly', priority: 0.8, changeFrequency: 'monthly' },
+  { path: '/compat', priority: 0.8, changeFrequency: 'monthly' },
   ...LEGAL_DOCS.map((doc) => ({ path: `/legal/${doc}`, priority: 0.2, changeFrequency: 'yearly' as const })),
 ];
 

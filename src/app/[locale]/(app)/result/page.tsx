@@ -5,7 +5,8 @@ import { ShareCard } from '@/components/ShareCard';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, use, useEffect, useRef, useState } from 'react';
 import { Elements, Flows, LockedList, Now, Pillars, Proof, Stars, Traits, VerdictCard } from '@/components/ReadingBlocks';
-import { ApiError, api, type Reading, type Tier } from '@/lib/api';
+import { ProductResult } from '@/components/ProductBlocks';
+import { ApiError, api, isProduct, type ProductView, type Reading, type Tier } from '@/lib/api';
 import { legal } from '@/lib/legal';
 import { isLocale, ui, type Locale } from '@/lib/ui';
 
@@ -28,7 +29,7 @@ function Result({ params }: Props) {
   const t = ui(locale);
   const l = legal(locale);
 
-  const [reading, setReading] = useState<Reading | null>(null);
+  const [reading, setReading] = useState<Reading | ProductView | null>(null);
   const [error, setError] = useState<string | null>(null);
   // 남긴 질문에 대한 답. 받아오는 동안은 undefined, 답이 없으면 null.
   const [answer, setAnswer] = useState<string | null | undefined>(undefined);
@@ -48,7 +49,7 @@ function Result({ params }: Props) {
 
   useEffect(() => {
     let live = true;
-    api<Reading>(`/api/readings/${id}?locale=${locale}`)
+    api<Reading | ProductView>(`/api/readings/${id}?locale=${locale}`)
       .then((r) => live && setReading(r))
       .catch((e) => live && setError(e instanceof ApiError && e.status === 404 ? t.notFound : t.loadFailed));
     return () => { live = false; };
@@ -78,6 +79,8 @@ function Result({ params }: Props) {
 
   if (error && !reading) return <p className="error" role="alert">{error}</p>;
   if (!reading) return <div className="spinner" role="status" aria-label={t.sending} />;
+  // 신년운세·궁합은 화면 구성이 달라 따로 그린다.
+  if (isProduct(reading)) return <ProductResult view={reading} locale={locale} />;
 
   const tiers: { key: Tier; name: string; desc: string; badge?: string }[] = [
     { key: 'deep', ...t.tierDeep },

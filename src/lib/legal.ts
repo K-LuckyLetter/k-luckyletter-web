@@ -81,6 +81,7 @@ const ko: Legal = {
       sections: [
         { heading: '1. 수집하는 정보', body: [
           '풀이를 만들 때: 생년월일과 태어난 시간, 양력·음력 구분, 태어난 곳의 시간대, 성별, 이름 또는 닉네임, 현재 상황과 직무, 남긴 질문.',
+          '궁합 풀이를 만들 때: 위 정보 중 상대방의 생년월일과 태어난 시간, 시간대, 성별, 이름 또는 닉네임, 두 사람의 관계. 상대방의 정보는 본인이 입력해도 되는 경우에만 입력해 주세요.',
           '결제할 때: 리포트 링크를 받을 이메일 주소, 주문 금액과 통화, PayPal 주문 번호. 카드 번호 등 결제 수단 정보는 PayPal이 처리하며 회사는 받지 않습니다.',
           '심층 리포트를 이용할 때: 적성 검사 30문항의 답.',
           ADS
@@ -199,6 +200,7 @@ const en: Legal = {
       sections: [
         { heading: '1. Information we collect', body: [
           'When you create a reading: birth date and time, solar or lunar calendar, the time zone of your birthplace, gender, a name or nickname, your current situation and job field, and any question you leave.',
+          'When you create a compatibility reading: the same birth details, gender, and name or nickname for your partner, and how the two of you are related. Please enter another person\'s details only if you are in a position to share them.',
           'When you pay: the email address for your report link, the order amount and currency, and the PayPal order number. Card numbers and other payment details are handled by PayPal and never reach the Company.',
           'When you use the Deep report: your answers to the 30-question interest test.',
           ADS
@@ -317,6 +319,7 @@ const ja: Legal = {
       sections: [
         { heading: '1. 取得する情報', body: [
           '鑑定を作成するとき: 生年月日と出生時刻、新暦・旧暦の区分、出生地のタイムゾーン、性別、お名前またはニックネーム、現在の状況と職種、ご質問。',
+          '相性鑑定を作成するとき: お相手の生年月日と出生時刻、タイムゾーン、性別、お名前またはニックネーム、お二人の関係。お相手の情報は、入力して差し支えない場合にのみ入力してください。',
           '決済するとき: レポートのリンクを受け取るメールアドレス、注文金額と通貨、PayPalの注文番号。カード番号などの決済情報はPayPalが取り扱い、当社は受け取りません。',
           'ディープレポートをご利用のとき: 適性テスト30問の回答。',
           ADS
@@ -435,6 +438,7 @@ const zh: Legal = {
       sections: [
         { heading: '1. 收集的信息', body: [
           '生成解读时: 出生日期和时间、公历或农历、出生地时区、性别、姓名或昵称、当前情况和职业领域，以及您留下的问题。',
+          '生成合盘解读时: 对方的出生日期和时间、时区、性别、姓名或昵称，以及两人的关系。请仅在可以提供对方信息的情况下填写。',
           '付款时: 接收报告链接的邮箱地址、订单金额和币种、PayPal订单号。卡号等支付信息由PayPal处理，本公司不会收到。',
           '使用深度报告时: 30道兴趣测试题的答案。',
           ADS

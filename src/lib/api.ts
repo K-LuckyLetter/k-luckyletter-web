@@ -61,14 +61,40 @@ export interface Reading {
   prices: Record<Tier, Price>;
 }
 
+/** 명식 한 벌: 일간, 네 기둥, 일간의 힘. */
+export interface ChartView {
+  dayMaster: { label: string; text: string; hanja: string; element: string };
+  pillars: PillarView[];
+  strength: { label: string; pct: number };
+}
+
+/** 신년운세·궁합의 결과. 라벨까지 서버가 붙여서 내려준다. 무료 화면에서는 잠긴 점수가 null 이고 months 가 없다. */
+export interface ProductView {
+  id: string; product: 'yearly' | 'compat'; paid: boolean; name: string; title: string; headline: string;
+  score: { label: string; value: number; grade: Grade; gradeLabel: string };
+  summary: string[];
+  basis: string;
+  bars: { title: string; items: { label: string; score: number | null; grade: Grade | null; gradeLabel: string | null }[] };
+  bestMonth: string;
+  months: { rows: { ym: string; label: string; ganji: string; score: number; grade: Grade; gradeLabel: string }[]; best: string[]; caution: string[] } | null;
+  notes: { title: string; lines: string[] }[];
+  legend: { grade: Grade; label: string; min: number }[];
+  scaleNote: string;
+  labels: { total: string; locked: string; lockedNote: string; bestMonth: string; best: string; caution: string; months: string; chart: string };
+  charts: (ChartView & { name: string })[];
+  toc: { no: number; label: string; title: string; items: string[] }[];
+  price?: Price;
+}
+export const isProduct = (r: Reading | ProductView): r is ProductView => 'product' in r;
+
 export interface Chapter {
-  no: number; label: string; title: string; source: 'ai' | 'draft';
+  no: number; key: string; label: string; title: string; source: 'ai' | 'draft';
   items: { heading: string; body: string }[];
 }
 export interface Report {
   status: 'generating' | 'completed' | 'failed';
   chapters: Chapter[];
-  reading: Reading;
+  reading: Reading | ProductView;
   interest: { key: string; label: string; test: number; saju: number }[] | null;
   mail: { to: string; status: 'sent' | 'skipped' | 'failed' } | null;
 }
